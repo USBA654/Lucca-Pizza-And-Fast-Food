@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reservation | Lucca Pizza & Fast Food</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Poppins,sans-serif;background:#070707;color:#fff;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button,input,select,textarea{font-family:inherit}
+
+.topbar{
+  background:linear-gradient(90deg,#e53935,#ff6b00,#1976d2);
+  padding:9px 20px;text-align:center;font-size:13px;font-weight:600
+}
+
+.navbar{
+  position:sticky;top:0;z-index:999;
+  background:rgba(5,5,5,.96);backdrop-filter:blur(15px);
+  border-bottom:1px solid rgba(255,255,255,.08)
+}
+.nav-inner{
+  max-width:1250px;margin:auto;min-height:75px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 20px
+}
+.logo{font-size:24px;font-weight:800}
+.logo span{color:#ff5b16}
+.nav-links{display:flex;align-items:center;gap:27px}
+.nav-links a{color:#ddd;font-size:14px;font-weight:500;transition:.3s}
+.nav-links a:hover,.nav-links a.active{color:#ff641c}
+.cart-btn{
+  border:1px solid #ff5b16;background:#111;color:#fff;
+  padding:10px 15px;border-radius:25px;transition:.3s
+}
+.cart-btn:hover{background:#ff5b16}
+.cart-count{color:#ff5b16;font-weight:700}
+.mobile-menu{display:none;font-size:25px;cursor:pointer}
+
+.hero{
+  min-height:350px;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:60px 20px;position:relative;overflow:hidden;
+  background:
+  linear-gradient(rgba(0,0,0,.67),rgba(0,0,0,.9)),
+  url("https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1600&q=85")
+  center/cover
+}
+.hero-content{max-width:800px;animation:fadeUp .8s ease}
+.eyebrow{color:#ff641c;font-size:13px;font-weight:700;letter-spacing:3px}
+.hero h1{font-size:clamp(40px,6vw,68px);font-weight:800;line-height:1.05;margin:12px 0}
+.hero h1 span{color:#ff5b16}
+.hero p{color:#ccc;font-size:15px}
+
+.container{max-width:1150px;margin:65px auto;padding:0 20px}
+.reservation-grid{display:grid;grid-template-columns:.9fr 1.4fr;gap:28px}
+
+.info,.form-card{
+  background:linear-gradient(145deg,#151515,#0d0d0d);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:22px;box-shadow:0 20px 50px rgba(0,0,0,.35)
+}
+.info{padding:34px}
+.form-card{padding:34px}
+
+.label{
+  color:#ff641c;font-size:12px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase
+}
+.info h2,.form-card h2{font-size:28px;margin:10px 0}
+.info>p,.form-card>p{color:#999;font-size:13px;line-height:1.8}
+
+.info-list{display:grid;gap:13px;margin-top:25px}
+.info-item{
+  display:flex;gap:13px;align-items:center;
+  background:#101010;border:1px solid rgba(255,255,255,.06);
+  padding:13px;border-radius:14px
+}
+.icon{
+  width:40px;height:40px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,82,0,.12);font-size:19px
+}
+.info-item strong{display:block;font-size:13px}
+.info-item small{color:#888;font-size:11px}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:17px;margin-top:25px}
+.field{display:flex;flex-direction:column;gap:7px}
+.full{grid-column:1/-1}
+label{font-size:12px;color:#ddd;font-weight:500}
+input,select,textarea{
+  width:100%;outline:none;border:1px solid rgba(255,255,255,.1);
+  background:#080808;color:#fff;border-radius:11px;padding:13px;
+  font-size:13px;transition:.3s
+}
+input:focus,select:focus,textarea:focus{
+  border-color:#ff5b16;box-shadow:0 0 0 3px rgba(255,91,22,.08)
+}
+select option{background:#111}
+textarea{min-height:105px;resize:vertical}
+
+.submit{
+  grid-column:1/-1;border:0;cursor:pointer;
+  background:linear-gradient(90deg,#ff4200,#ff7200);
+  color:#fff;padding:15px;border-radius:12px;font-weight:700;
+  font-size:14px;transition:.3s
+}
+.submit:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,70,0,.25)}
+.note{grid-column:1/-1;text-align:center;color:#666;font-size:11px}
+
+.success{
+  display:none;margin-top:20px;padding:18px;border-radius:14px;
+  background:rgba(40,190,100,.08);
+  border:1px solid rgba(40,190,100,.25);text-align:center
+}
+.success.show{display:block}
+.success h3{color:#50df8c;font-size:16px;margin-bottom:5px}
+.success p{color:#aaa;font-size:12px;line-height:1.7}
+
+footer{
+  margin-top:70px;padding:42px 20px 25px;text-align:center;
+  background:#050505;border-top:1px solid rgba(255,255,255,.07)
+}
+.footer-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:18px 0}
+.footer-links a{font-size:12px;color:#888}
+.footer-links a:hover{color:#ff5b16}
+footer p{font-size:12px;color:#666}
+.copy{margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.06);font-size:11px;color:#555}
+
+#topBtn{
+  position:fixed;right:20px;bottom:20px;width:44px;height:44px;
+  border:0;border-radius:50%;background:#ff5200;color:#fff;
+  cursor:pointer;font-size:18px;display:none;z-index:1000
+}
+#topBtn.show{display:block}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(25px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@media(max-width:850px){
+  .nav-inner{min-height:68px}
+  .mobile-menu{display:block}
+  .nav-links{
+    position:absolute;top:68px;left:0;right:0;
+    display:none;flex-direction:column;align-items:stretch;
+    gap:0;background:#090909;border-bottom:1px solid #222
+  }
+  .nav-links.show{display:flex}
+  .nav-links a,.nav-links .cart-btn{display:block;margin:0;border-radius:0;padding:15px 22px}
+  .reservation-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .topbar{font-size:10px}
+  .logo{font-size:18px}
+  .hero{min-height:300px}
+  .hero h1{font-size:38px}
+  .container{margin:42px auto;padding:0 14px}
+  .info,.form-card{padding:23px;border-radius:18px}
+  .form-grid{grid-template-columns:1fr}
+  .full,.submit,.note{grid-column:auto}
+}
+</style>
+</head>
+
+<body>
+<script src="site-config.js"></script>
+
+<div class="topbar">🍕 Lucca Pizza & Fast Food — Bagh, Azad Kashmir | Delivery Available</div>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">LUCCA <span>PIZZA</span></a>
+
+    <div class="mobile-menu" onclick="toggleMenu()">☰</div>
+
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="deals.html">Deals</a>
+      <a href="reservation.html" class="active">Reservation</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="cart.html" class="cart-btn">🛒 Cart <span class="cart-count" id="cartCount">0</span></a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">LUCCA PIZZA & FAST FOOD</div>
+    <h1>Reserve Your <span>Table</span></h1>
+    <p>Choose your date, time and table preference for a great dining experience.</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="reservation-grid">
+
+    <section class="info">
+      <div class="label">Lucca Experience</div>
+      <h2>Book Your Table</h2>
+      <p>
+        Coming with family, friends or colleagues?
+        Reserve your table in advance and enjoy your favourite food at Lucca.
+      </p>
+
+      <div class="info-list">
+
+        <div class="info-item">
+          <div class="icon">📍</div>
+          <div>
+            <strong>Location</strong>
+            <small>Bagh, Azad Kashmir</small>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="icon">🍽️</div>
+          <div>
+            <strong>Table Reservation</strong>
+            <small>Dine-in reservation available</small>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="icon">🚚</div>
+          <div>
+            <strong>Home Delivery</strong>
+            <small>Delivery service available</small>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="icon">💵</div>
+          <div>
+            <strong>Payment</strong>
+            <small>Cash on Delivery available</small>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="form-card">
+      <h2>Reservation Details</h2>
+      <p>Fill in your information and preferred reservation time.</p>
+
+      <form id="reservationForm">
+
+        <div class="form-grid">
+
+          <div class="field">
+            <label>Full Name *</label>
+            <input id="name" type="text" placeholder="Enter your name" required>
+          </div>
+
+          <div class="field">
+            <label>Phone Number *</label>
+            <input id="phone" type="tel" placeholder="03XX XXXXXXX" required>
+          </div>
+
+          <div class="field">
+            <label>Reservation Date *</label>
+            <input id="date" type="date" required>
+          </div>
+
+          <div class="field">
+            <label>Reservation Time *</label>
+            <input id="time" type="time" min="11:00" max="23:00" required>
+          </div>
+
+          <div class="field">
+            <label>Number of Guests *</label>
+            <select id="guests" required>
+              <option value="">Select guests</option>
+              <option>1 Guest</option>
+              <option>2 Guests</option>
+              <option>3 Guests</option>
+              <option>4 Guests</option>
+              <option>5 Guests</option>
+              <option>6 Guests</option>
+              <option>7 Guests</option>
+              <option>8 Guests</option>
+              <option>9 Guests</option>
+              <option>10 Guests</option>
+              <option>More than 10</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Table Preference</label>
+            <select id="table">
+              <option>Any Available Table</option>
+              <option>Family Table</option>
+              <option>Couple Table</option>
+              <option>Window Table</option>
+              <option>Large Group Table</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label>Special Request</label>
+            <textarea id="message" placeholder="Any special request? (Optional)"></textarea>
+          </div>
+
+          <button class="submit" type="submit">🍽️ Reserve My Table</button>
+
+          <div class="note">No payment is required for table reservation.</div>
+
+        </div>
+      </form>
+
+      <div class="success" id="success">
+        <h3>✅ Reservation Saved Successfully!</h3>
+        <p id="successText"></p>
+      </div>
+
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <a href="index.html" class="logo">LUCCA <span>PIZZA</span></a>
+  <p>Pizza • Burgers • BBQ • Rice • Pasta • Fast Food</p>
+
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+    <a href="deals.html">Deals</a>
+    <a href="reservation.html">Reservation</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div class="copy">© 2026 Lucca Pizza & Fast Food — Bagh, Azad Kashmir</div>
+</footer>
+
+<button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function toggleMenu(){
+  document.getElementById("navLinks").classList.toggle("show");
+}
+
+function updateCartCount(){
+  let cart=[];
+  try{
+    cart=JSON.parse(localStorage.getItem("luccaMenuCart"))||[];
+  }catch(e){}
+  let count=0;
+  cart.forEach(item=>count+=Number(item.qty||item.quantity||1));
+  document.getElementById("cartCount").textContent=count;
+}
+updateCartCount();
+
+const dateInput=document.getElementById("date");
+const today=new Date();
+dateInput.min=
+  today.getFullYear()+"-"+
+  String(today.getMonth()+1).padStart(2,"0")+"-"+
+  String(today.getDate()).padStart(2,"0");
+
+document.getElementById("reservationForm").addEventListener("submit",function(e){
+  e.preventDefault();
+
+  const reservation={
+    id:"LUCCA-"+Date.now(),
+    name:document.getElementById("name").value.trim(),
+    phone:document.getElementById("phone").value.trim(),
+    date:document.getElementById("date").value,
+    time:document.getElementById("time").value,
+    guests:document.getElementById("guests").value,
+    table:document.getElementById("table").value,
+    message:document.getElementById("message").value.trim(),
+    createdAt:new Date().toISOString()
+  };
+
+  let reservations=[];
+  try{
+    reservations=JSON.parse(localStorage.getItem("luccaReservations"))||[];
+  }catch(e){}
+
+  reservations.push(reservation);
+  localStorage.setItem("luccaReservations",JSON.stringify(reservations));
+
+luccaSend('/api/reservations',reservation);
+luccaWhatsApp('Lucca Pizza Reservation\nName: '+reservation.name+'\nPhone: '+reservation.phone+'\nDate: '+reservation.date+'\nTime: '+reservation.time+'\nGuests: '+reservation.guests+'\nTable: '+reservation.table+'\nSpecial Request: '+(reservation.message||''));
+
+  document.getElementById("successText").innerHTML=
+    "Reservation ID: <strong>"+reservation.id+"</strong><br>"+
+    "Thank you, <strong>"+reservation.name+"</strong>. "+
+    "Your request for <strong>"+reservation.guests+
+    "</strong> on <strong>"+reservation.date+
+    "</strong> at <strong>"+reservation.time+
+    "</strong> has been saved.";
+
+  document.getElementById("success").classList.add("show");
+  this.reset();
+
+  document.getElementById("success").scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+  });
+});
+
+window.addEventListener("scroll",function(){
+  document.getElementById("topBtn").classList.toggle("show",window.scrollY>400);
+});
+</script>
+
+</body>
+</html>

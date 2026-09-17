@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart | Lucca Pizza & Fast Food</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Poppins,sans-serif;background:#070707;color:#fff}
+a{text-decoration:none;color:inherit}
+button,input,select{font-family:inherit}
+.topbar{background:linear-gradient(90deg,#e53935,#ff6b00,#1976d2);padding:9px 20px;text-align:center;font-size:13px;font-weight:600}
+.navbar{position:sticky;top:0;z-index:999;background:rgba(5,5,5,.96);backdrop-filter:blur(15px);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav-inner{max-width:1250px;margin:auto;min-height:75px;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+.logo{font-size:24px;font-weight:800}.logo span{color:#ff5b16}
+.nav-links{display:flex;align-items:center;gap:27px}
+.nav-links a{color:#ddd;font-size:14px;font-weight:500;transition:.3s}
+.nav-links a:hover,.nav-links a.active{color:#ff641c}
+.cart-btn{border:1px solid #ff5b16;background:#111;color:#fff;padding:10px 15px;border-radius:25px}
+.cart-count{color:#ff5b16;font-weight:700}
+.mobile-menu{display:none;font-size:25px;cursor:pointer}
+
+.hero{min-height:300px;display:flex;align-items:center;justify-content:center;text-align:center;padding:50px 20px;position:relative;background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.92)),url("https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1600&q=85") center/cover}
+.hero-content{animation:fadeUp .8s ease}.eyebrow{color:#ff641c;font-size:13px;font-weight:700;letter-spacing:3px}
+.hero h1{font-size:clamp(40px,6vw,62px);font-weight:800;margin:10px 0}.hero h1 span{color:#ff5b16}.hero p{color:#bbb;font-size:14px}
+
+.container{max-width:1150px;margin:55px auto;padding:0 20px}
+.cart-layout{display:grid;grid-template-columns:1.45fr .75fr;gap:25px}
+.card{background:linear-gradient(145deg,#151515,#0d0d0d);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:25px}
+.section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.section-title h2{font-size:22px}.section-title span{font-size:12px;color:#888}
+
+.cart-item{display:grid;grid-template-columns:75px 1fr auto;gap:15px;align-items:center;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.cart-item:last-child{border-bottom:0}
+.item-image{width:75px;height:65px;border-radius:12px;object-fit:cover}
+.item-name{font-size:14px;font-weight:600}.item-meta{font-size:11px;color:#888;margin-top:4px}
+.item-price{font-size:13px;color:#ff641c;font-weight:700;margin-top:5px}
+.controls{display:flex;align-items:center;gap:8px;margin-top:8px}
+.qty-btn{width:27px;height:27px;border:1px solid #333;background:#111;color:#fff;border-radius:7px;cursor:pointer}
+.qty-btn:hover{border-color:#ff5b16;color:#ff5b16}
+.qty{min-width:22px;text-align:center;font-size:12px}
+.remove{border:0;background:none;color:#777;cursor:pointer;font-size:11px;margin-left:8px}
+.remove:hover{color:#ff4b35}
+
+.summary h2{font-size:22px;margin-bottom:20px}
+.summary-row{display:flex;justify-content:space-between;padding:11px 0;color:#aaa;font-size:13px}
+.summary-row.total{border-top:1px solid rgba(255,255,255,.1);margin-top:8px;padding-top:18px;color:#fff;font-size:18px;font-weight:700}
+.total strong{color:#ff641c}
+.checkout{display:block;text-align:center;background:linear-gradient(90deg,#ff4200,#ff7200);padding:14px;border-radius:11px;font-weight:700;font-size:14px;margin-top:20px;transition:.3s}
+.checkout:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(255,70,0,.25)}
+.clear{width:100%;margin-top:10px;background:#111;border:1px solid #333;color:#aaa;padding:11px;border-radius:10px;cursor:pointer;font-size:12px}
+.clear:hover{border-color:#ff5b16;color:#fff}
+.delivery{margin-top:20px;padding:14px;border-radius:12px;background:#0b0b0b;border:1px solid rgba(255,255,255,.06);font-size:11px;color:#888;line-height:1.7}
+.empty{text-align:center;padding:55px 20px;color:#888}.empty-icon{font-size:45px;margin-bottom:12px}.empty h3{color:#fff;margin-bottom:6px}
+.menu-link{display:inline-block;margin-top:18px;color:#ff641c;font-size:13px;font-weight:600}
+
+footer{margin-top:70px;padding:42px 20px 25px;text-align:center;background:#050505;border-top:1px solid rgba(255,255,255,.07)}
+.footer-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:18px 0}.footer-links a{font-size:12px;color:#888}.footer-links a:hover{color:#ff5b16}
+footer p{font-size:12px;color:#666}.copy{margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.06);font-size:11px;color:#555}
+#topBtn{position:fixed;right:20px;bottom:20px;width:44px;height:44px;border:0;border-radius:50%;background:#ff5200;color:#fff;cursor:pointer;font-size:18px;display:none;z-index:1000}
+#topBtn.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:850px){
+.nav-inner{min-height:68px}.mobile-menu{display:block}
+.nav-links{position:absolute;top:68px;left:0;right:0;display:none;flex-direction:column;align-items:stretch;gap:0;background:#090909;border-bottom:1px solid #222}
+.nav-links.show{display:flex}.nav-links a,.nav-links .cart-btn{display:block;margin:0;border-radius:0;padding:15px 22px}
+.cart-layout{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+.topbar{font-size:10px}.logo{font-size:18px}.hero{min-height:260px}.hero h1{font-size:38px}
+.container{margin:38px auto;padding:0 14px}.card{padding:19px;border-radius:17px}
+.cart-item{grid-template-columns:58px 1fr}.item-image{width:58px;height:55px}.cart-item>.item-price{grid-column:2}
+}
+</style>
+</head>
+<body>
+<script src="site-config.js"></script>
+
+<div class="topbar">🍕 Lucca Pizza & Fast Food — Bagh, Azad Kashmir | Delivery Available</div>
+
+<nav class="navbar">
+<div class="nav-inner">
+<a href="index.html" class="logo">LUCCA <span>PIZZA</span></a>
+<div class="mobile-menu" onclick="toggleMenu()">☰</div>
+<div class="nav-links" id="navLinks">
+<a href="index.html">Home</a>
+<a href="menu.html">Menu</a>
+<a href="deals.html">Deals</a>
+<a href="reservation.html">Reservation</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a href="cart.html" class="cart-btn active">🛒 Cart <span class="cart-count" id="cartCount">0</span></a>
+</div>
+</div>
+</nav>
+
+<header class="hero">
+<div class="hero-content">
+<div class="eyebrow">YOUR ORDER</div>
+<h1>Shopping <span>Cart</span></h1>
+<p>Review your selected items before placing your order.</p>
+</div>
+</header>
+
+<main class="container">
+<div class="cart-layout">
+
+<section class="card">
+<div class="section-title">
+<h2>Your Items</h2>
+<span id="itemCount">0 items</span>
+</div>
+<div id="cartItems"></div>
+</section>
+
+<aside class="card summary">
+<h2>Order Summary</h2>
+<div class="summary-row"><span>Subtotal</span><span id="subtotal">Rs. 0</span></div>
+<div class="summary-row"><span>Delivery</span><span id="delivery">Rs. 0</span></div>
+<div class="summary-row total"><span>Total</span><strong id="total">Rs. 0</strong></div>
+
+<a href="#" class="checkout" onclick="checkout(event)">Proceed to Order</a>
+<button class="clear" onclick="clearCart()">Clear Cart</button>
+
+<div class="delivery">
+🚚 <strong>Delivery Available</strong><br>
+Payment method: Cash on Delivery.<br>
+Delivery charges may depend on your location.
+</div>
+</aside>
+
+</div>
+</main>
+
+<footer>
+<a href="index.html" class="logo">LUCCA <span>PIZZA</span></a>
+<p>Pizza • Burgers • BBQ • Rice • Pasta • Fast Food</p>
+<div class="footer-links">
+<a href="index.html">Home</a><a href="menu.html">Menu</a><a href="deals.html">Deals</a>
+<a href="reservation.html">Reservation</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</div>
+<div class="copy">© 2026 Lucca Pizza & Fast Food — Bagh, Azad Kashmir</div>
+</footer>
+
+<button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+const fallbackImage="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500&q=80";
+
+function toggleMenu(){document.getElementById("navLinks").classList.toggle("show")}
+
+function getCart(){
+try{return JSON.parse(localStorage.getItem("luccaMenuCart"))||[]}catch(e){return []}
+}
+function saveCart(cart){localStorage.setItem("luccaMenuCart",JSON.stringify(cart))}
+
+function renderCart(){
+const cart=getCart();
+const box=document.getElementById("cartItems");
+let count=0,total=0;
+cart.forEach(x=>{count+=Number(x.qty||x.quantity||1);total+=Number(x.price||0)*Number(x.qty||x.quantity||1)});
+document.getElementById("cartCount").textContent=count;
+document.getElementById("itemCount").textContent=count+" item"+(count===1?"":"s");
+document.getElementById("subtotal").textContent="Rs. "+total.toLocaleString();
+document.getElementById("delivery").textContent=count?"Calculated on order":"Rs. 0";
+document.getElementById("total").textContent="Rs. "+total.toLocaleString();
+
+if(!cart.length){
+box.innerHTML=`<div class="empty"><div class="empty-icon">🛒</div><h3>Your cart is empty</h3><p>Add something delicious from our menu.</p><a class="menu-link" href="menu.html">Browse Menu →</a></div>`;
+return;
+}
+
+box.innerHTML=cart.map((item,i)=>{
+const qty=Number(item.qty||item.quantity||1);
+const price=Number(item.price||0);
+const image=item.image||fallbackImage;
+return `<div class="cart-item">
+<img class="item-image" src="${image}" alt="">
+<div>
+<div class="item-name">${escapeHtml(item.name||"Menu Item")}</div>
+<div class="item-meta">${escapeHtml(item.category||"Lucca Pizza & Fast Food")}</div>
+<div class="controls">
+<button class="qty-btn" onclick="changeQty(${i},-1)">−</button>
+<span class="qty">${qty}</span>
+<button class="qty-btn" onclick="changeQty(${i},1)">+</button>
+<button class="remove" onclick="removeItem(${i})">Remove</button>
+</div>
+</div>
+<div class="item-price">Rs. ${(price*qty).toLocaleString()}</div>
+</div>`;
+}).join("");
+}
+
+function escapeHtml(text){
+return String(text).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+
+function changeQty(index,delta){
+const cart=getCart();
+if(!cart[index])return;
+const current=Number(cart[index].qty||cart[index].quantity||1)+delta;
+if(current<=0)cart.splice(index,1);
+else{cart[index].qty=current;delete cart[index].quantity}
+saveCart(cart);renderCart();
+}
+
+function removeItem(index){
+const cart=getCart();
+cart.splice(index,1);
+saveCart(cart);renderCart();
+}
+
+function clearCart(){
+if(!getCart().length)return;
+if(confirm("Clear all items from your cart?")){
+localStorage.removeItem("luccaMenuCart");renderCart();
+}
+}
+
+function checkout(e){
+e.preventDefault();
+const cart=getCart();
+if(!cart.length){alert("Your cart is empty. Please add items first.");return;}
+window.location.href="checkout.html";
+}
+
+renderCart();
+window.addEventListener("storage",renderCart);
+window.addEventListener("scroll",()=>document.getElementById("topBtn").classList.toggle("show",scrollY>400));
+</script>
+</body>
+</html>

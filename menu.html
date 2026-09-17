@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucca Pizza & Fast Food | Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;background:#070707;color:#fff;overflow-x:hidden}
+button,input{font-family:inherit}
+.topbar{background:linear-gradient(90deg,#e53935,#ff6b00,#1976d2);padding:9px 20px;text-align:center;font-size:13px;font-weight:600}
+.navbar{position:sticky;top:0;z-index:999;background:rgba(5,5,5,.95);backdrop-filter:blur(15px);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav-inner{max-width:1250px;margin:auto;min-height:75px;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+.logo{font-size:28px;font-weight:800;text-decoration:none;color:#fff}
+.logo span{color:#ff5b16}
+.nav-links{display:flex;align-items:center;gap:27px}
+.nav-links a{color:#ddd;text-decoration:none;font-size:14px;font-weight:500;transition:.3s}
+.nav-links a:hover,.nav-links a.active{color:#ff641c}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.cart-btn{position:relative;border:1px solid #ff5b16;color:#fff;background:#111;padding:10px 15px;border-radius:25px;cursor:pointer;transition:.3s}
+.cart-btn:hover{background:#ff5b16;transform:translateY(-2px)}
+.cart-count{position:absolute;top:-8px;right:-5px;width:21px;height:21px;border-radius:50%;background:#e53935;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:700}
+.mobile-menu{display:none;font-size:25px;cursor:pointer}
+.menu-hero{min-height:340px;display:flex;align-items:center;justify-content:center;text-align:center;padding:65px 20px;position:relative;overflow:hidden;background:radial-gradient(circle at 15% 50%,rgba(255,73,20,.18),transparent 35%),radial-gradient(circle at 85% 30%,rgba(25,118,210,.16),transparent 35%),#080808}
+.menu-hero:before{content:"";position:absolute;width:450px;height:450px;border:1px solid rgba(255,90,20,.13);border-radius:50%;animation:spin 20s linear infinite}
+.hero-content{position:relative;z-index:2}
+.small-title{color:#ff641c;font-size:14px;font-weight:700;letter-spacing:3px;margin-bottom:12px}
+.menu-hero h1{font-size:clamp(42px,6vw,72px);font-weight:800;line-height:1.05}
+.menu-hero h1 span{color:#ff5b16}
+.menu-hero p{max-width:650px;margin:18px auto 0;color:#aaa;font-size:15px}
+.search-area{max-width:1150px;margin:0 auto;padding:25px 20px 10px}
+.search-box{background:#111;border:1px solid #252525;border-radius:16px;display:flex;align-items:center;padding:5px 18px;transition:.3s}
+.search-box:focus-within{border-color:#ff5b16;box-shadow:0 0 20px rgba(255,91,22,.12)}
+.search-box span{font-size:20px}.search-box input{width:100%;border:none;outline:none;background:transparent;color:white;padding:13px;font-size:14px}
+.category-bar{max-width:1200px;margin:auto;padding:20px;display:flex;gap:10px;overflow-x:auto;scrollbar-width:none}
+.category-bar::-webkit-scrollbar{display:none}
+.category-btn{flex:0 0 auto;border:1px solid #292929;background:#101010;color:#bbb;padding:10px 17px;border-radius:25px;cursor:pointer;font-size:13px;transition:.3s}
+.category-btn:hover,.category-btn.active{background:#ff5b16;border-color:#ff5b16;color:#fff;transform:translateY(-2px)}
+.menu-section{max-width:1200px;margin:45px auto;padding:0 20px;scroll-margin-top:100px}
+.section-heading{margin-bottom:25px}
+.section-heading h2{font-size:30px;font-weight:800}
+.section-heading h2 span{color:#ff5b16}
+.section-heading p{color:#777;font-size:13px;margin-top:5px}
+.food-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.category-hero{width:100%;height:350px;border-radius:18px;overflow:hidden;border:1px solid #242424;background:#090909;position:relative;margin:0 0 18px;box-shadow:0 15px 40px rgba(0,0,0,.28);display:flex;align-items:center;justify-content:center}
+.category-hero img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:.5s;background:#090909}.category-hero:hover img{transform:scale(1.01)}
+.category-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,.05) 55%,rgba(0,0,0,.18))}
+.category-hero-label{position:absolute;z-index:2;left:22px;bottom:18px;background:rgba(0,0,0,.68);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(8px);padding:8px 13px;border-radius:10px;font-size:12px;font-weight:700;letter-spacing:.5px}
+.food-card{background:linear-gradient(145deg,#151515,#0c0c0c);border:1px solid #242424;border-radius:13px;overflow:hidden;transition:.3s;position:relative;min-height:112px}
+.food-card:hover{transform:translateY(-4px);border-color:rgba(255,91,22,.7);box-shadow:0 12px 28px rgba(0,0,0,.35)}
+.food-info{padding:12px}.food-info h3{font-size:13px;line-height:1.35;margin-bottom:0}.food-info p{display:none}
+.price{color:#ff641c;font-size:14px;font-weight:800;margin-top:0}
+.food-bottom{display:flex;justify-content:space-between;align-items:center;gap:7px;margin-top:10px}
+.add-btn{border:none;background:linear-gradient(135deg,#ff5b16,#e53935);color:white;padding:7px 10px;border-radius:8px;cursor:pointer;font-weight:600;font-size:10px;transition:.3s;white-space:nowrap}
+.add-btn:hover{transform:scale(1.04)}
+.sizes{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.size-btn{border:1px solid #333;background:#0d0d0d;color:#aaa;padding:4px 6px;border-radius:6px;cursor:pointer;font-size:9px;transition:.2s}
+.size-btn:hover,.size-btn.selected{background:#ff5b16;color:white;border-color:#ff5b16}
+.empty{text-align:center;color:#777;padding:50px 20px;display:none}
+.deal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.deal-card{position:relative;min-height:155px;border-radius:20px;overflow:hidden;border:1px solid #292929;background:#111;transition:.4s}
+.deal-card:hover{transform:translateY(-7px);border-color:#ff5b16}
+.deal-card img{display:none}
+.deal-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.97),rgba(0,0,0,.08))}
+.deal-content{position:absolute;bottom:0;left:0;right:0;padding:20px}
+.deal-label{display:inline-block;background:#e53935;padding:5px 9px;border-radius:6px;font-size:10px;font-weight:700;margin-bottom:7px}
+.deal-content h3{font-size:19px}.deal-content p{color:#bbb;font-size:12px;margin:5px 0}.deal-price{color:#ff641c;font-size:21px;font-weight:800}
+.delivery-box{max-width:1200px;margin:60px auto 0;border:1px solid #242424;background:linear-gradient(100deg,rgba(255,70,20,.11),rgba(25,118,210,.07)),#101010;border-radius:22px;padding:35px 25px;display:flex;align-items:center;justify-content:space-between;gap:25px}
+.delivery-box h2{font-size:27px}.delivery-box p{color:#999;font-size:13px;margin-top:8px}.delivery-time{font-size:20px;font-weight:700;color:#ff641c}
+.delivery-btn{display:inline-block;margin-top:17px;text-decoration:none;background:#ff5b16;color:white;padding:11px 20px;border-radius:10px;font-size:13px;font-weight:600}
+footer{margin-top:70px;background:#050505;border-top:1px solid #1d1d1d;padding:45px 20px 20px}
+.footer-inner{max-width:1200px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:35px}
+.footer-col h3{color:#ff641c;margin-bottom:14px;font-size:16px}.footer-col p,.footer-col a{color:#888;font-size:12px;line-height:2;text-decoration:none;display:block}
+.footer-col a:hover{color:#ff641c}.footer-bottom{max-width:1200px;margin:35px auto 0;padding-top:18px;border-top:1px solid #1d1d1d;text-align:center;color:#555;font-size:11px}
+#topBtn{position:fixed;right:20px;bottom:20px;width:45px;height:45px;border-radius:50%;border:none;background:#ff5b16;color:white;cursor:pointer;font-size:18px;display:none;z-index:999}
+.toast{position:fixed;right:20px;bottom:80px;background:#171717;border:1px solid #ff5b16;color:white;padding:13px 18px;border-radius:10px;font-size:12px;transform:translateX(150%);transition:.4s;z-index:2000}
+.toast.show{transform:translateX(0)}
+.cart-drawer{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:3000;display:none}
+.cart-drawer.open{display:block}
+.cart-panel{position:absolute;right:0;top:0;width:min(430px,94%);height:100%;background:#101010;padding:22px;overflow-y:auto;box-shadow:-20px 0 50px rgba(0,0,0,.4)}
+.cart-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #292929;padding-bottom:15px}
+.close-cart{background:none;border:0;color:white;font-size:28px;cursor:pointer}
+.cart-item{display:flex;justify-content:space-between;gap:10px;padding:15px 0;border-bottom:1px solid #242424}
+.cart-item h4{font-size:13px}.cart-item p{color:#888;font-size:11px;margin-top:4px}
+.qty{display:flex;align-items:center;gap:8px}.qty button{width:27px;height:27px;background:#181818;border:1px solid #333;color:#fff;border-radius:6px;cursor:pointer}
+.cart-total{margin-top:20px;background:#171717;border-radius:12px;padding:15px}.cart-total-row{display:flex;justify-content:space-between}.cart-total strong{color:#ff641c;font-size:20px}
+.cod{font-size:11px;color:#888;margin-top:10px}.order-btn{width:100%;border:0;background:linear-gradient(135deg,#ff5b16,#e53935);color:#fff;padding:13px;border-radius:10px;margin-top:15px;font-weight:700;cursor:pointer}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@media(max-width:1000px){.food-grid,.deal-grid{grid-template-columns:repeat(2,1fr)}.footer-inner{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){
+.topbar{font-size:10px;padding:8px}.nav-inner{min-height:65px}.logo{font-size:23px}.nav-links{display:none;position:absolute;top:65px;left:0;right:0;background:#090909;border-bottom:1px solid #222;flex-direction:column;padding:20px;gap:18px}.nav-links.show{display:flex}.mobile-menu{display:block}.nav-actions{margin-left:auto}.menu-hero{min-height:290px;padding:50px 18px}.menu-hero h1{font-size:43px}.menu-hero p{font-size:12px}.menu-section{margin:35px auto;padding:0 14px}.section-heading h2{font-size:24px}.food-grid,.deal-grid{grid-template-columns:1fr;gap:10px}.category-hero{height:240px;border-radius:16px}.category-hero-label{left:14px;bottom:12px}.food-card{min-height:105px}.delivery-box{flex-direction:column;align-items:flex-start;padding:25px}.delivery-box h2{font-size:22px}.footer-inner{grid-template-columns:1fr;gap:25px}
+}
+</style>
+</head>
+
+<body>
+<script src="site-config.js"></script>
+
+<div class="topbar">🍕 FRESHLY MADE • 🚴 FAST DELIVERY • 💵 CASH ON DELIVERY • 📍 BAGH, AZAD KASHMIR</div>
+
+<nav class="navbar">
+<div class="nav-inner">
+<a href="index.html" class="logo">LUCCA<span>.</span></a>
+<div class="nav-links" id="navLinks">
+<a href="index.html">Home</a><a href="menu.html" class="active">Menu</a><a href="deals.html">Deals</a>
+<a href="reservation.html">Reservation</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</div>
+<div class="nav-actions">
+<button class="cart-btn" onclick="showCart()">🛒 Cart <span class="cart-count" id="cartCount">0</span></button>
+<div class="mobile-menu" onclick="toggleMenu()">☰</div>
+</div>
+</div>
+</nav>
+
+<section class="menu-hero">
+<div class="hero-content">
+<div class="small-title">LUCCA PIZZA & FAST FOOD</div>
+<h1>OUR <span>MENU</span></h1>
+<p>Fresh ingredients, delicious flavors and something special for everyone. Choose your favorite food and order from Lucca.</p>
+</div>
+</section>
+
+<div class="search-area">
+<div class="search-box"><span>🔎</span><input id="searchInput" type="text" placeholder="Search pizza, burger, chicken, pasta..." oninput="searchFood()"></div>
+</div>
+
+<div class="category-bar" id="categoryBar">
+<button class="category-btn active" onclick="filterCategory('all',this)">All</button>
+</div>
+
+<div id="menuContainer"></div>
+<div class="empty" id="emptyMessage">No food item found. Try another search.</div>
+
+
+
+<div class="delivery-box">
+<div><h2>Home Delivery Available 🚴</h2><p>Delivery time: 11:00 AM to 10:00 PM</p><div class="delivery-time">💵 Cash on Delivery</div></div>
+<a class="delivery-btn" href="reservation.html">Reserve a Table</a>
+</div>
+
+<footer>
+<div class="footer-inner">
+<div class="footer-col"><h3>LUCCA PIZZA & FAST FOOD</h3><p>Fresh food, delicious flavors and fast service in Bagh, Azad Kashmir.</p></div>
+<div class="footer-col"><h3>Quick Links</h3><a href="index.html">Home</a><a href="menu.html">Menu</a><a href="deals.html">Deals</a></div>
+<div class="footer-col"><h3>Services</h3><a href="reservation.html">Table Reservation</a><a href="contact.html">Home Delivery</a><a href="contact.html">Contact</a></div>
+<div class="footer-col"><h3>Location</h3><p>Bagh, Azad Kashmir</p><p>Delivery: 11 AM – 10 PM</p></div>
+</div>
+<div class="footer-bottom">© <span id="year"></span> Lucca Pizza & Fast Food. All Rights Reserved.</div>
+</footer>
+
+<button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<div class="toast" id="toast"></div>
+
+<div class="cart-drawer" id="cartDrawer" onclick="if(event.target===this)closeCart()">
+<div class="cart-panel">
+<div class="cart-head"><h2>Your Cart</h2><button class="close-cart" onclick="closeCart()">×</button></div>
+<div id="cartItems"></div>
+<div class="cart-total"><div class="cart-total-row"><span>Subtotal</span><strong id="cartTotal">Rs. 0</strong></div><div class="cod">Payment method: Cash on Delivery</div><button class="order-btn" onclick="placeOrder()">Proceed to Order</button></div>
+</div>
+</div>
+
+<script>
+/* =========================================================
+   IMPORTANT:
+   Every item has a DIFFERENT image, and images stay relevant
+   to their own category. No salad/samosa/fries image is used
+   for drinks, coffee, pizza, etc.
+========================================================= */
+
+const images = {
+pizza1:"https://images.unsplash.com/photo-1593560708920-61dd98c8c2b2?auto=format&fit=crop&w=900&q=85",
+pizza2:"https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=900&q=85",
+pizza3:"https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&fit=crop&w=900&q=85",
+pizza4:"https://images.unsplash.com/photo-1548365328-8b849e6f90c6?auto=format&fit=crop&w=900&q=85",
+pizza5:"https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=85",
+pizza6:"https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=85",
+pizza7:"https://images.unsplash.com/photo-1528137871618-79d2761e3fdc?auto=format&fit=crop&w=900&q=85",
+pizza8:"https://images.unsplash.com/photo-1594007654729-407eedc4be65?auto=format&fit=crop&w=900&q=85",
+pizza9:"https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=85",
+pizza10:"https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=85",
+
+special1:"https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=85",
+special2:"https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=84&crop=entropy",
+special3:"https://images.unsplash.com/photo-1548365328-8b849e6f90c6?auto=format&fit=crop&w=900&q=84",
+special4:"https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=84&crop=entropy",
+special5:"https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=84&crop=faces",
+burger1:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=85",
+burger2:"https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=85",
+burger3:"https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=900&q=85",
+burger4:"https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=900&q=85",
+burger5:"https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=900&q=85",
+burger6:"https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=900&q=85",
+burger7:"https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=900&q=85",
+burger8:"https://images.unsplash.com/photo-1550317138-10000687a72b?auto=format&fit=crop&w=900&q=85",
+burger9:"https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?auto=format&fit=crop&w=900&q=85",
+burger10:"https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&w=900&q=85",
+burger11:"https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=900&q=85",
+burger12:"https://images.unsplash.com/photo-1598182198871-d3f4ab4fd181?auto=format&fit=crop&w=900&q=85",
+
+fries1:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=85",
+fries2:"https://images.unsplash.com/photo-1576777647209-3d3c3d7d8e3c?auto=format&fit=crop&w=900&q=85",
+fries3:"https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=900&q=85",
+fries4:"https://images.unsplash.com/photo-1639024471283-03518883512d?auto=format&fit=crop&w=900&q=85",
+loadedfries:"https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=900&q=85",
+wings1:"https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=900&q=85",
+wings2:"https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=900&q=85",
+wings3:"https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=900&q=82&crop=entropy",
+nuggets1:"https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=900&q=84&crop=entropy",
+chicken1:"https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=900&q=85",
+chicken2:"https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=900&q=85",
+
+rice1:"https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=900&q=85",
+rice2:"https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=900&q=85",
+rice3:"https://images.unsplash.com/photo-1596560548464-f010549b84d7?auto=format&fit=crop&w=900&q=85",
+rice4:"https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=85",
+rice5:"https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=900&q=85",
+rice6:"https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?auto=format&fit=crop&w=900&q=85",
+
+rice7:"https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=900&q=85",
+rice8:"https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=900&q=84",
+rice9:"https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=84&crop=entropy",
+pasta1:"https://images.unsplash.com/photo-1551892374-ecf8754cf8b0?auto=format&fit=crop&w=900&q=85",
+pasta2:"https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=900&q=85",
+pasta3:"https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=900&q=85",
+pasta4:"https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=900&q=85",
+pasta5:"https://images.unsplash.com/photo-1574894709920-11b28e7367e3?auto=format&fit=crop&w=900&q=85",
+
+roll1:"https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=900&q=85",
+roll2:"https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=900&q=85",
+roll3:"https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto=format&fit=crop&w=900&q=85",
+roll4:"https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=900&q=85",
+roll5:"https://images.unsplash.com/photo-1521305916504-4a1121188589?auto=format&fit=crop&w=900&q=85",
+roll6:"https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=900&q=85",
+
+bbq1:"https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=85",
+bbq2:"https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=900&q=85",
+bbq3:"https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=900&q=85",
+bbq4:"https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=900&q=85",
+bbq5:"https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=900&q=85",
+bbq6:"https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?auto=format&fit=crop&w=900&q=85",
+
+salad1:"https://images.unsplash.com/photo-1546793665-c74683f339c1?auto=format&fit=crop&w=900&q=85",
+salad2:"https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=85",
+
+soup1:"https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=85",
+soup2:"https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=900&q=85",
+soup3:"https://images.unsplash.com/photo-1603105037880-880cd4edfb0d?auto=format&fit=crop&w=900&q=85",
+
+biryani1:"https://images.unsplash.com/photo-1563379091339-03246963d96c?auto=format&fit=crop&w=900&q=85",
+biryani2:"https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=900&q=85",
+
+coffee1:"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=85",
+coffee2:"https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=900&q=85",
+
+shake1:"https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=900&q=85",
+shake2:"https://images.unsplash.com/photo-1553787499-6f0e0c0c7b22?auto=format&fit=crop&w=900&q=85",
+
+tea1:"https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=900&q=85",
+tea2:"https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?auto=format&fit=crop&w=900&q=85",
+
+drink1:"https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=900&q=85",
+drink2:"https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=85",
+drink3:"https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=900&q=85",
+drink4:"https://images.unsplash.com/photo-1564419434312-9e3f39a6b7aa?auto=format&fit=crop&w=900&q=85",
+drink5:"https://images.unsplash.com/photo-1625772299848-391b6a8f3c7f?auto=format&fit=crop&w=900&q=85",
+drink6:"https://images.unsplash.com/photo-1581006852262-e4307cf6283a?auto=format&fit=crop&w=900&q=85",
+drink7:"https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=900&q=84&crop=entropy",
+
+shawarma1:"https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=900&q=84&crop=entropy",
+shawarma2:"https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=900&q=84&crop=faces",
+karahi1:"https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=900&q=85",
+karahi2:"https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=900&q=85",
+karahi3:"https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=900&q=85",
+karahi4:"https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=900&q=82&crop=entropy",
+
+deal1:"https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=1100&q=85",
+deal2:"https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=1100&q=85",
+deal3:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1100&q=85",
+deal4:"https://images.unsplash.com/photo-1593560708920-61dd98c8c2b2?auto=format&fit=crop&w=1100&q=85"
+};
+
+/* Menu data taken from the supplied menu cards.
+   Where the printed menu showed no Cold-drink price, reasonable
+   general prices are used only for the website estimate. */
+const menuData=[
+{key:"pizza",icon:"🍕",title:"Pizza",desc:"Choose your favorite pizza and size.",items:[
+["Chicken Tikka Pizza",{S:590,M:1080,L:1620,XL:2400,Party:2850},"pizza1"],
+["Chicken Pizza",{S:590,M:1080,L:1620,XL:2400,Party:2850},"pizza2"],
+["Hot & Spicy Pizza",{S:590,M:1080,L:1620,XL:2400,Party:2850},"pizza3"],
+["Seekh Kabab Pizza",{S:630,M:1180,L:1720,XL:2450,Party:3050},"pizza4"],
+["B.B.Q Chicken Pizza",{S:590,M:1080,L:1620,XL:2400,Party:2850},"pizza5"],
+["Chicken Fajita",{S:590,M:1080,L:1620,XL:2400,Party:2850},"pizza6"],
+["Cheese Lover",{S:590,M:1080,L:1620,XL:2400,Party:2850},"pizza7"],
+["Chicken Malai Boti",{S:630,M:1230,L:1770,XL:2600,Party:3050},"pizza8"],
+["Mexican Chicken",{S:630,M:1230,L:1770,XL:2600,Party:3050},"pizza9"],
+["1 Extra Topping",{S:100,M:190,L:290,XL:490,Party:790},"pizza10"]
+]},
+{key:"special",icon:"⭐",title:"Special Pizza",desc:"Lucca's special pizza selection.",items:[
+["Lucca Special Pizza",{M:1450,L:1950,XL:3000,Party:3600},"special1"],
+["Beef Lover Pizza",{M:1450,L:1950,XL:3000,Party:3600},"special2"],
+["Smoke Chicken Pizza",{M:1450,L:1950,XL:3000,Party:3600},"special3"],
+["Crown Crust Pizza",{M:1450,L:1950},"special4"],
+["Stuff Crust Pizza",{M:1450,L:1950},"special5"]
+]},
+{key:"burger",icon:"🍔",title:"Burgers",desc:"All burgers are served with fries.",items:[
+["Zinger Chicken Burger",380,"burger1"],["Chicken Burger",320,"burger2"],["Chicken Cheese Burger",400,"burger3"],
+["Double Chicken Cheese Burger",550,"burger4"],["Shami Burger",230,"burger5"],["Egg Burger",200,"burger6"],
+["Beef Burger",420,"burger7"],["Beef Cheese Burger",500,"burger8"],["Lucca Special Burger",600,"burger9"],
+["Grilled Fillet Burger",400,"burger10"],["Grilled Fillet Cheese Burger",480,"burger11"],["Additional Cheese Slice",90,"burger12"]
+]},
+{key:"appetizer",icon:"🍟",title:"Appetizers",desc:"Crispy sides, wings and chicken favorites.",items:[
+["French Fries",{S:200,M:250,L:350},"fries1"],["Masala Fries",{S:210,M:260,L:360},"fries2"],
+["Cheese Fries",450,"fries3"],["Garlic Mayo Fries",450,"fries4"],["Fried Chicken Wings (12pcs)",660,"wings1"],
+["BBQ Chicken Wings",850,"wings2"],["Hot Chicken Wings",850,"wings3"],["Hot Shots (10pcs)",450,"chicken1"],
+["Crispy Fried Chicken (2pic)",420,"chicken2"],["Chicken Nuggets (10 pic)",440,"nuggets1"],
+["Loaded Fries",{S:450,M:750},"loadedfries"]
+]},
+{key:"rice",icon:"🍚",title:"Rice",desc:"Freshly prepared rice dishes.",items:[
+["Egg Fried Rice",360,"rice1"],["Chicken Fried Rice",650,"rice2"],["Chicken Chilli Rice",650,"rice3"],
+["Chicken Shashlik Rice",680,"rice4"],["Chicken Manchurian",650,"rice5"],["Chicken Garlic Rice",650,"rice6"],
+["Dry Chicken Chilli Rice",900,"rice7"],["Stuff Chicken with Rice",900,"rice8"],["Lucca Special Rice",800,"rice9"]
+]},
+{key:"pasta",icon:"🍝",title:"Pastas",desc:"Creamy and flavorful pasta dishes.",items:[
+["Fettuccine Alfredo Pasta",850,"pasta1"],["Cajun Chicken Pasta",790,"pasta2"],["Chicken Macaroni",600,"pasta3"],
+["Chicken Chowmein",750,"pasta4"],["Chicken & Mushroom Lasagna",950,"pasta5"]
+]},
+{key:"roll",icon:"🌯",title:"Roll Paratha",desc:"Freshly prepared rolls and parathas.",items:[
+["Chicken Roll Paratha",280,"roll1"],["Chicken Cheese Roll Paratha",330,"roll2"],["Chicken Garlic Mayo Roll Paratha",330,"roll3"],
+["Seekh Kabab Roll Paratha",280,"roll4"],["Beef Boti Roll Paratha",340,"roll5"],["Zinger Roll Paratha",380,"roll6"]
+]},
+{key:"shawarma",icon:"🌯",title:"Shawarma",desc:"Fresh chicken shawarma.",items:[
+["Chicken Shawarma",220,"shawarma1"],["Chicken Shawarma Special",290,"shawarma2"]
+]},
+{key:"pakistani",icon:"🍲",title:"Pakistani Cuisine",desc:"Traditional Pakistani favorites.",items:[
+["Chicken Karahi Full",1750,"karahi1"],["Chicken Karahi Half",850,"karahi2"],
+["White Chicken Karahi Full",1850,"karahi3"],["White Chicken Karahi Half",950,"karahi4"]
+]},
+{key:"bbq",icon:"🍗",title:"B.B.Q",desc:"Freshly grilled BBQ favorites.",items:[
+["Chicken Tikka Leg",330,"bbq1"],["Chicken Tikka Chest",340,"bbq2"],["Chicken Boti (Per Seekh)",220,"bbq3"],
+["Malai Boti (Per Seekh)",240,"bbq4"],["Beef Boti (12 Seekh)",1200,"bbq5"],["Seekh Kabab (12 Seekh)",1080,"bbq6"]
+]},
+{key:"salad",icon:"🥗",title:"Salads",desc:"Fresh salad selections.",items:[
+["Mexican Chicken Salad",{S:380,M:580},"salad1"],["Russian Salad",{S:380,M:580},"salad2"]
+]},
+{key:"soup",icon:"🍲",title:"Soups",desc:"Warm and comforting soups.",items:[
+["Chicken Corn Soup",220,"soup1"],["Hot & Sour Soup",250,"soup2"],["Lucca Special Soup",290,"soup3"]
+]},
+{key:"biryani",icon:"🍛",title:"Biryani",desc:"Fragrant rice and biryani.",items:[
+["Chicken Biryani",{Regular:350,Large:550},"biryani1"],["Chicken Tikka Biryani",600,"biryani2"]
+]},
+{key:"coffee",icon:"☕",title:"Coffee",desc:"Hot beverages.",items:[
+["Hot Coffee",300,"coffee1"],["Hot Chocolate",400,"coffee2"]
+]},
+{key:"shake",icon:"🥤",title:"Milk Shakes",desc:"Creamy milk shakes.",items:[
+["Seasonal Milk Shakes",200,"shake1"],["Ice Cream Milk Shakes",380,"shake2"]
+]},
+{key:"tea",icon:"🍵",title:"Tea",desc:"Tea selection.",items:[
+["Green Tea",80,"tea1"]
+]},
+{key:"drinks",icon:"🥤",title:"Cold Drinks",desc:"Refreshing cold beverages only.",items:[
+["Fresh Lime with Soft Drink",180,"drink1"],["Disposable Tin",120,"drink2"],["Mineral Water (Small)",80,"drink3"],
+["Mineral Water (Large)",120,"drink4"],["N-R Drink",100,"drink5"],["1 Liter Drink",180,"drink6"],["1.5 Liter Drink",220,"drink7"]
+]}
+];
+
+const deals=[
+["Pizza Deal 1",850,["1 Small Pizza","4 Chicken Wings","1 Soft Drink"],"deal1"],
+["Pizza Deal 2",1560,["1 Medium Pizza","6 Chicken Wings","1 Ltr Drink"],"deal2"],
+["Pizza Deal 3",2770,["1 Large Pizza","2 Crispy Roll","1 Large Fries","1.5 Drink"],"deal3"],
+["Pizza Deal 4",2730,["2 Medium Pizza","10 Pic Hot Shot","1.5 Ltr Drink"],"deal1"],
+["Pizza Deal 5",4030,["2 Large Pizza","12 Chicken Wings","1.5 Ltr Drink"],"deal2"],
+["Pizza Deal 6",3370,["1 XL Pizza","2 Roll Paratha","1 French Fries","1.5 Ltr Drink"],"deal1"],
+["Pizza Deal 7",4060,["1 Party Pizza","12 Wings","1 French Fries","2 Ltr Drink"],"deal2"],
+["Burger Deal 1",610,["1 Zinger","1 Reg Fries","1 Soft Drink"],"deal3"],
+["Burger Deal 2",600,["1 Zinger Roll","1 Reg Fries","1 Drink"],"deal4"],
+["Burger Deal 3",1050,["2 Zinger","1 Reg Fries","2 Drinks"],"deal3"],
+["Burger Deal 4",1790,["5 Zinger","1.5 Drink"],"deal3"],
+["Burger Deal 5",600,["Chicken Meal","2pc Chicken","1 Reg Fries","1 Drink"],"deal2"],
+["Burger Deal 6",1690,["12 Fried Wings","2 Roll Paratha","1 Fries","1 Ltr Drink"],"deal2"],
+["Best Deal 1",2700,["1 M Pizza","2 Zinger Burger","2 Chicken Shawarma","1 Fries M","1.5 Ltr Drink"],"deal1"],
+["Best Deal 2",3550,["1 L Pizza","3 Zinger Burger","3 Chicken Shawarma","1.5 Ltr Drink"],"deal3"]
+];
+
+let cart=JSON.parse(localStorage.getItem("luccaMenuCart")||"[]");
+let activeCategory="all";
+
+function money(n){return "Rs."+Number(n).toLocaleString("en-PK")}
+function slug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,"-")}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+
+function buildCategories(){
+ const bar=document.getElementById("categoryBar");
+ menuData.forEach(c=>{
+   const b=document.createElement("button");
+   b.className="category-btn"; b.dataset.category=c.key;
+   b.textContent=c.icon+" "+c.title;
+   b.onclick=()=>filterCategory(c.key,b);
+   bar.appendChild(b);
+ });
+}
+
+function priceData(price){
+ if(typeof price==="number") return {start:price,options:null,text:money(price)};
+ const entries=Object.entries(price);
+ return {start:entries[0][1],options:entries,text:entries.map(([k,v])=>k+" "+money(v)).join(" · ")};
+}
+
+const heroImages = {
+  pizza:"https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1400&q=88",
+  special:"https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=1400&q=88",
+  burgers:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1400&q=88",
+  appetizers:"https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=1400&q=88",
+  rice:"https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=1400&q=88",
+  pasta:"https://images.unsplash.com/photo-1551892374-ecf8754cf8b0?auto=format&fit=crop&w=1400&q=88",
+  roll:"https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=1400&q=88",
+  shawarma:"https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=1400&q=88",
+  pakistani:"https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=1400&q=88",
+  bbq:"https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1400&q=88",
+  salads:"https://images.unsplash.com/photo-1546793665-c74683f339c1?auto=format&fit=crop&w=1400&q=88",
+  soups:"https://images.unsplash.com/photo-1670518045324-6c1f1942b2b8?auto=format&fit=crop&w=1400&q=88",
+  biryani:"https://images.unsplash.com/photo-1563379091339-03246963d96c?auto=format&fit=crop&w=1400&q=88",
+  coffee:"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1400&q=88",
+  shakes:"https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=1400&q=88",
+  tea:"https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=1400&q=88",
+  drinks:"https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=1400&q=88"
+};
+
+function renderMenu(){
+ const query=document.getElementById("searchInput").value.toLowerCase().trim();
+ const container=document.getElementById("menuContainer");
+ container.innerHTML="";
+ let found=0;
+
+ menuData.forEach(section=>{
+   if(activeCategory!=="all" && activeCategory!==section.key)return;
+   const items=section.items.filter(x=>x[0].toLowerCase().includes(query));
+   if(!items.length)return;
+   found+=items.length;
+
+   const sec=document.createElement("section");
+   sec.className="menu-section category-section";
+   sec.id="section-"+section.key;
+   const heroImage=heroImages[section.key] || images[section.items[0][2]];
+   sec.innerHTML=`
+     <div class="section-heading"><h2>${section.icon} <span>${section.title}</span></h2><p>${section.desc}</p></div>
+     <div class="category-hero"><img src="${heroImage}" alt="${escapeHtml(section.title)}" loading="lazy" onerror="this.style.display='none'"/><div class="category-hero-label">${escapeHtml(section.title)} • LUCCA</div></div>
+     <div class="food-grid"></div>`;
+   const grid=sec.querySelector(".food-grid");
+
+   items.forEach(item=>{
+     const name=item[0], price=item[1];
+     const pd=priceData(price);
+     const card=document.createElement("div");
+     card.className="food-card";
+     const sizeHTML=pd.options?`<div class="sizes">${pd.options.map(([k,v],i)=>`<button class="size-btn ${i===0?"selected":""}" data-price="${v}" data-label="${escapeHtml(k)}">${escapeHtml(k)} ${money(v)}</button>`).join("")}</div>`:"";
+     card.innerHTML=`
+       <div class="food-info">
+         <h3>${escapeHtml(name)}</h3>
+         ${sizeHTML}
+         <div class="food-bottom">
+           <div class="price" data-price-display>${pd.options?"From "+money(pd.start):money(pd.start)}</div>
+           <button class="add-btn">+ Add</button>
+         </div>
+       </div>`;
+     if(pd.options){
+       card.querySelectorAll(".size-btn").forEach(btn=>{
+         btn.onclick=()=>{
+           card.querySelectorAll(".size-btn").forEach(x=>x.classList.remove("selected"));
+           btn.classList.add("selected");
+           card.querySelector("[data-price-display]").textContent=money(btn.dataset.price);
+         };
+       });
+     }
+     card.querySelector(".add-btn").onclick=()=>{
+       let selectedPrice=pd.start, selectedLabel="";
+       const selected=card.querySelector(".size-btn.selected");
+       if(selected){selectedPrice=Number(selected.dataset.price);selectedLabel=selected.dataset.label}
+       addCart(name,selectedPrice,selectedLabel);
+     };
+     grid.appendChild(card);
+   });
+   container.appendChild(sec);
+ });
+ document.getElementById("emptyMessage").style.display=found?"none":"block";
+}
+
+function filterCategory(category,button){
+ activeCategory=category;
+ document.querySelectorAll(".category-btn").forEach(x=>x.classList.remove("active"));
+ button.classList.add("active");
+ renderMenu();
+ if(category!=="all")document.getElementById("section-"+category)?.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function searchFood(){
+ activeCategory="all";
+ document.querySelectorAll(".category-btn").forEach(x=>x.classList.remove("active"));
+ document.querySelector(".category-btn").classList.add("active");
+ renderMenu();
+}
+
+function addCart(name,price,option){
+ const id=name+"|"+option;
+ const existing=cart.find(x=>x.id===id);
+ if(existing)existing.qty++;
+ else cart.push({id,name,price,option,qty:1});
+ saveCart();
+ toast(name+" added to cart");
+}
+
+function saveCart(){localStorage.setItem("luccaMenuCart",JSON.stringify(cart));renderCart()}
+function renderCart(){
+ document.getElementById("cartCount").textContent=cart.reduce((a,x)=>a+x.qty,0);
+ const box=document.getElementById("cartItems");
+ if(!cart.length){box.innerHTML='<p style="color:#777;text-align:center;padding:35px 0">Your cart is empty.</p>';document.getElementById("cartTotal").textContent="Rs. 0";return}
+ box.innerHTML=cart.map(x=>`
+ <div class="cart-item">
+  <div><h4>${escapeHtml(x.name)}</h4><p>${x.option?escapeHtml(x.option)+" · ":""}${money(x.price)} each</p></div>
+  <div class="qty"><button onclick='changeQty(${JSON.stringify(x.id)},-1)'>−</button><b>${x.qty}</b><button onclick='changeQty(${JSON.stringify(x.id)},1)'>+</button></div>
+ </div>`).join("");
+ const total=cart.reduce((a,x)=>a+x.price*x.qty,0);
+ document.getElementById("cartTotal").textContent=money(total);
+}
+function changeQty(id,delta){
+ const x=cart.find(i=>i.id===id);if(!x)return;
+ x.qty+=delta;if(x.qty<=0)cart=cart.filter(i=>i.id!==id);saveCart();
+}
+function showCart(){document.getElementById("cartDrawer").classList.add("open");renderCart()}
+function closeCart(){document.getElementById("cartDrawer").classList.remove("open")}
+function placeOrder(){
+ if(!cart.length){toast("Your cart is empty");return}
+ toast("Cart ready — connect this button to your WhatsApp/order system.");
+}
+function toast(text){
+ const t=document.getElementById("toast");t.textContent=text;t.classList.add("show");
+ clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove("show"),2200);
+}
+function toggleMenu(){document.getElementById("navLinks").classList.toggle("show")}
+function renderDeals(){
+ document.getElementById("dealGrid").innerHTML=deals.map(d=>`
+ <div class="deal-card">
+  <div class="deal-content">
+   <span class="deal-label">DEAL</span>
+   <h3>${escapeHtml(d[0])}</h3>
+   <p>${d[2].map(x=>"✓ "+escapeHtml(x)).join(" · ")}</p>
+   <div class="deal-price">${money(d[1])}</div>
+   <button class="add-btn" onclick='addCart(${JSON.stringify(d[0])},${d[1]},"Deal")'>+ Add Deal</button>
+  </div>
+ </div>`).join("");
+}
+window.addEventListener("scroll",()=>document.getElementById("topBtn").style.display=scrollY>450?"block":"none");
+document.getElementById("year").textContent=new Date().getFullYear();
+
+buildCategories();
+renderMenu();
+renderDeals();
+renderCart();
+</script>
+</body>
+</html>
