@@ -22,7 +22,18 @@ footer{margin-top:70px;background:#050505;border-top:1px solid #1d1d1d;padding:4
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 @media(max-width:1000px){.deal-grid{grid-template-columns:repeat(2,1fr)}.footer-inner{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:700px){.topbar{font-size:10px;padding:8px}.nav-inner{min-height:65px}.logo{font-size:23px}.nav-links{display:none;position:absolute;top:65px;left:0;right:0;background:#090909;border-bottom:1px solid #222;flex-direction:column;padding:20px;gap:18px}.nav-links.show{display:flex}.mobile-menu{display:block}.nav-actions{margin-left:auto}.hero{min-height:290px;padding:50px 18px}.hero h1{font-size:43px}.hero p{font-size:12px}.deal-section{margin:35px auto;padding:0 14px}.section-heading h2{font-size:24px}.category-hero{height:175px;border-radius:16px}.hero-label{left:14px;bottom:12px}.deal-grid{grid-template-columns:1fr;gap:10px}.deal-card{min-height:145px}.delivery-box{flex-direction:column;align-items:flex-start;padding:25px}.delivery-box h2{font-size:22px}.footer-inner{grid-template-columns:1fr;gap:25px}}
-</style></head>
+</style>
+<style id="lucca-mobile-fallback">
+@media (max-width:700px){
+  .lucca-mobile-fallback-btn{display:flex !important;position:fixed;top:78px;right:14px;width:44px;height:44px;align-items:center;justify-content:center;background:#ff4b16;color:#fff;border:2px solid #fff;border-radius:12px;font-size:23px;z-index:10001;box-shadow:0 6px 18px rgba(0,0,0,.35);cursor:pointer;}
+  .lucca-mobile-fallback-panel{display:none;position:fixed;top:130px;right:14px;width:min(250px,calc(100vw - 28px));background:#0b0b0b;border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:8px;z-index:10000;box-shadow:0 12px 35px rgba(0,0,0,.55);}
+  .lucca-mobile-fallback-panel.open{display:block;}
+  .lucca-mobile-fallback-panel a{display:block;color:#fff;text-decoration:none;padding:13px 14px;border-bottom:1px solid rgba(255,255,255,.09);font-weight:700;}
+  .lucca-mobile-fallback-panel a:last-child{border-bottom:0;}
+}
+@media (min-width:701px){.lucca-mobile-fallback-btn,.lucca-mobile-fallback-panel{display:none !important;}}
+</style>
+</head>
 <body>
 <script src="site-config.js"></script>
 <div class="topbar">🍕 FRESHLY MADE • 🚴 FAST DELIVERY • 💵 CASH ON DELIVERY • 📍 BAGH, AZAD KASHMIR</div>
@@ -54,4 +65,9 @@ function renderDeals(){const box=document.getElementById('dealsContainer');box.i
 function addCart(name,price,option){const id=name+'|'+option,found=cart.find(x=>x.id===id);if(found)found.qty++;else cart.push({id,name,price,option,qty:1});saveCart();toast(name+' added to cart')}
 function saveCart(){localStorage.setItem('luccaMenuCart',JSON.stringify(cart));renderCart()}function renderCart(){document.getElementById('cartCount').textContent=cart.reduce((a,x)=>a+x.qty,0);const box=document.getElementById('cartItems');if(!cart.length){box.innerHTML='<p style="color:#777;text-align:center;padding:35px 0">Your cart is empty.</p>';document.getElementById('cartTotal').textContent='Rs. 0';return}box.innerHTML=cart.map(x=>`<div class="cart-item"><div><h4>${esc(x.name)}</h4><p>${x.option?esc(x.option)+' · ':''}${money(x.price)} each</p></div><div class="qty"><button onclick='changeQty(${JSON.stringify(x.id)},-1)'>−</button><b>${x.qty}</b><button onclick='changeQty(${JSON.stringify(x.id)},1)'>+</button></div></div>`).join('');document.getElementById('cartTotal').textContent=money(cart.reduce((a,x)=>a+x.price*x.qty,0))}
 function changeQty(id,d){const x=cart.find(i=>i.id===id);if(!x)return;x.qty+=d;if(x.qty<=0)cart=cart.filter(i=>i.id!==id);saveCart()}function showCart(){document.getElementById('cartDrawer').classList.add('open');renderCart()}function closeCart(){document.getElementById('cartDrawer').classList.remove('open')}function placeOrder(){if(!cart.length){toast('Your cart is empty');return}window.location.href='checkout.html'}function toast(t){const x=document.getElementById('toast');x.textContent=t;x.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>x.classList.remove('show'),2200)}function toggleMenu(){document.getElementById('navLinks').classList.toggle('show')}window.addEventListener('scroll',()=>document.getElementById('topBtn').style.display=scrollY>450?'block':'none');document.getElementById('year').textContent=new Date().getFullYear();renderDeals();renderCart();
-</script></body></html>
+</script>
+<button class="lucca-mobile-fallback-btn" aria-label="Open navigation" onclick="document.getElementById('luccaMobileFallback').classList.toggle('open')">☰</button>
+<div class="lucca-mobile-fallback-panel" id="luccaMobileFallback">
+<a href="index.html">Home</a><a href="menu.html">Menu</a><a href="deals.html">Deals</a><a href="reservation.html">Reservation</a><a href="about.html">About Us</a><a href="contact.html">Contact</a><a href="cart.html">Cart</a>
+</div>
+</body></html>

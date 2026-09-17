@@ -1202,6 +1202,47 @@ footer{
 }
 
 
+/* Mobile menu button */
+.mobile-menu-btn{
+    display:none;
+    width:40px;
+    height:40px;
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:10px;
+    background:#171717;
+    color:#fff;
+    font-size:21px;
+    cursor:pointer;
+}
+
+.mobile-menu-panel{
+    display:none;
+}
+
+@media(max-width:700px){
+    .mobile-menu-btn{display:flex !important;align-items:center;justify-content:center;flex:0 0 40px;visibility:visible !important;opacity:1 !important;}
+    .mobile-menu-panel{
+        position:absolute;
+        top:100%;
+        left:0;
+        right:0;
+        background:rgba(8,8,8,.98);
+        border-bottom:1px solid rgba(255,255,255,.12);
+        padding:12px 4.5% 18px;
+        box-shadow:0 12px 30px rgba(0,0,0,.45);
+        z-index:9999;
+    }
+    .mobile-menu-panel.open{display:block;}
+    .mobile-menu-panel a{
+        display:block;
+        color:#fff;
+        padding:13px 10px;
+        border-bottom:1px solid rgba(255,255,255,.08);
+        font-weight:700;
+    }
+    .mobile-menu-panel a:last-child{border-bottom:0;}
+}
+
 /* =====================================================
    MOBILE
 ===================================================== */
@@ -1246,6 +1287,9 @@ footer{
 
     .nav-actions{
         margin-left:auto;
+        display:flex !important;
+        align-items:center;
+        gap:8px;
     }
 
     .order-btn{
@@ -1629,6 +1673,8 @@ footer{
 
 <div class="nav-actions">
 
+<button class="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" onclick="toggleMobileMenu()">☰</button>
+
 <button class="cart-btn" onclick="window.location.href='cart.html'">
 
 🛒
@@ -1643,6 +1689,16 @@ Order Now
 
 </div>
 
+</div>
+
+<div class="mobile-menu-panel" id="mobileMenuPanel">
+<a href="index.html">Home</a>
+<a href="menu.html">Menu</a>
+<a href="deals.html">Deals</a>
+<a href="reservation.html">Reservation</a>
+<a href="about.html">About Us</a>
+<a href="contact.html">Contact</a>
+<a href="cart.html">Cart</a>
 </div>
 
 </nav>
@@ -2666,5 +2722,14 @@ window.addEventListener("load",function(){
 <heref+"file:///E:/lucca%20pizza/final%20menue.html"</a>
 </script>
 
+<script>
+function toggleMobileMenu(){
+  const panel=document.getElementById('mobileMenuPanel');
+  const btn=document.querySelector('.mobile-menu-btn');
+  if(!panel) return;
+  const open=panel.classList.toggle('open');
+  if(btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+</script>
 </body>
 </html>

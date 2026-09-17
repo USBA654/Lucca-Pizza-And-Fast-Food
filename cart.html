@@ -77,6 +77,17 @@ footer p{font-size:12px;color:#666}.copy{margin-top:22px;padding-top:18px;border
 .cart-item{grid-template-columns:58px 1fr}.item-image{width:58px;height:55px}.cart-item>.item-price{grid-column:2}
 }
 </style>
+
+<style id="lucca-mobile-fallback">
+@media (max-width:700px){
+  .lucca-mobile-fallback-btn{display:flex !important;position:fixed;top:78px;right:14px;width:44px;height:44px;align-items:center;justify-content:center;background:#ff4b16;color:#fff;border:2px solid #fff;border-radius:12px;font-size:23px;z-index:10001;box-shadow:0 6px 18px rgba(0,0,0,.35);cursor:pointer;}
+  .lucca-mobile-fallback-panel{display:none;position:fixed;top:130px;right:14px;width:min(250px,calc(100vw - 28px));background:#0b0b0b;border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:8px;z-index:10000;box-shadow:0 12px 35px rgba(0,0,0,.55);}
+  .lucca-mobile-fallback-panel.open{display:block;}
+  .lucca-mobile-fallback-panel a{display:block;color:#fff;text-decoration:none;padding:13px 14px;border-bottom:1px solid rgba(255,255,255,.09);font-weight:700;}
+  .lucca-mobile-fallback-panel a:last-child{border-bottom:0;}
+}
+@media (min-width:701px){.lucca-mobile-fallback-btn,.lucca-mobile-fallback-panel{display:none !important;}}
+</style>
 </head>
 <body>
 <script src="site-config.js"></script>
@@ -233,5 +244,10 @@ renderCart();
 window.addEventListener("storage",renderCart);
 window.addEventListener("scroll",()=>document.getElementById("topBtn").classList.toggle("show",scrollY>400));
 </script>
+
+<button class="lucca-mobile-fallback-btn" aria-label="Open navigation" onclick="document.getElementById('luccaMobileFallback').classList.toggle('open')">☰</button>
+<div class="lucca-mobile-fallback-panel" id="luccaMobileFallback">
+<a href="index.html">Home</a><a href="menu.html">Menu</a><a href="deals.html">Deals</a><a href="reservation.html">Reservation</a><a href="about.html">About Us</a><a href="contact.html">Contact</a><a href="cart.html">Cart</a>
+</div>
 </body>
 </html>
